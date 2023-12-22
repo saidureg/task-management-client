@@ -1,10 +1,14 @@
 import { Outlet } from "react-router-dom";
+import Navbar from "../pages/shared/Navbar/Navbar";
 
 const Main = () => {
   return (
     <div>
-      <h3>Main</h3>
-      <Outlet />
+      <div className="max-w-screen-xl mx-auto">
+        <Navbar />
+        <Outlet />
+      </div>
+      {/* <Footer /> */}
     </div>
   );
 };

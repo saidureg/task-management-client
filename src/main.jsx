@@ -6,6 +6,8 @@ import Router from "./Routes/Router";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={Router}></RouterProvider>
+    <div className="font-poppins">
+      <RouterProvider router={Router}></RouterProvider>
+    </div>
   </React.StrictMode>
 );
