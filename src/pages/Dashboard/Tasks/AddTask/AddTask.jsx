@@ -10,10 +10,8 @@ const AddTask = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
   const navigate = useNavigate();
-  const OwnerName = user?.displayName;
-  const OwnerEmail = user?.email;
-  const OwnerImage = user?.photoURL;
-  const status = "pending";
+  const email = user?.email;
+  const status = "to-do";
   //   const time = moment().format("YYYY-MM-DD h:mm:ss a");
   const {
     register,
@@ -22,21 +20,20 @@ const AddTask = () => {
     reset,
   } = useForm();
   const onSubmit = async (data) => {
-    const { product_name, photoURL, externalLink, description } = data;
+    const { title, deadline, description, priority } = data;
     const taskInfo = {
-      OwnerName,
-      OwnerEmail,
-      product_name,
-      photoURL,
+      email,
+      title,
+      deadline,
       description,
-      externalLink,
+      priority,
       status,
     };
     const res = await axiosPublic.post("/tasks", taskInfo);
     if (res.data.insertedId) {
       reset();
-      toast.success(`${product_name} is added to the DB!`);
-      navigate("/dashboard/myProduct");
+      toast.success(`${title} is added to the DB!`);
+      navigate("/dashboard/tasks");
     }
   };
   return (
@@ -44,87 +41,28 @@ const AddTask = () => {
       <h3 className="text-center text-3xl font-semibold">Add Your Task</h3>
 
       <div>
-        <div className="bg-white mx-10 px-5 py-4 rounded">
+        <div className="bg-white px-5 py-4 rounded w-1/2 mx-auto">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex gap-6 my-6">
-              {/*Owner name */}
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">Owner name</span>
-                </label>
-                <input
-                  type="text"
-                  defaultValue={OwnerName}
-                  disabled
-                  className="input input-bordered w-full "
-                />
-              </div>
-              {/* Owner Email */}
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">Owner Email</span>
-                </label>
-                <input
-                  type="text"
-                  defaultValue={OwnerEmail}
-                  disabled
-                  className="input input-bordered w-full "
-                />
-              </div>
-            </div>
-            {/* Owner image */}
-            <div className="form-control w-full ">
-              <label className="label">
-                <span className="label-text">Owner Image</span>
-              </label>
-              <input
-                type="text"
-                defaultValue={OwnerImage}
-                disabled
-                className="input input-bordered w-full "
-              />
-            </div>
             <div className="flex gap-6 my-6">
               {/* product_name */}
               <div className="form-control w-full ">
                 <label className="label">
-                  <span className="label-text">Product name*</span>
+                  <span className="label-text">Title*</span>
                 </label>
                 <input
                   type="text"
-                  placeholder="Product name"
-                  {...register("product_name", { required: true })}
+                  placeholder="Title"
+                  {...register("title", { required: true })}
                   className="input input-bordered w-full "
                 />
-                {errors.product_name && (
-                  <span className="text-red-600">Product name is required</span>
-                )}
-              </div>
-            </div>
-            <div className="flex gap-6 my-6">
-              {/* External Link */}
-              <div className="form-control w-full ">
-                <label className="label">
-                  <span className="label-text">External Link*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="External Link"
-                  {...register("externalLink", {
-                    required: true,
-                  })}
-                  className="input input-bordered w-full "
-                />
-                {errors.externalLink && (
-                  <span className="text-red-600">
-                    External Link is required
-                  </span>
+                {errors.title && (
+                  <span className="text-red-600">Title is required</span>
                 )}
               </div>
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Product Description*</span>
+                <span className="label-text">Description*</span>
               </label>
               <textarea
                 {...register("description", {
@@ -147,6 +85,45 @@ const AddTask = () => {
                 <p className="text-red-600">
                   Description must be less than 500 characters
                 </p>
+              )}
+            </div>
+            {/* deadlines */}
+            <div className="form-control w-full ">
+              <label className="label">
+                <span className="label-text">Deadline*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Deadline"
+                {...register("deadline", {
+                  required: true,
+                })}
+                className="input input-bordered w-full "
+              />
+              {errors.deadline && (
+                <span className="text-red-600">Deadline is required</span>
+              )}
+            </div>
+            {/* Priority */}
+            <div className="form-control w-full ">
+              <label className="label">
+                <span className="label-text">Priority*</span>
+              </label>
+              <select
+                defaultValue="default"
+                {...register("priority", { required: true })}
+                className="select select-bordered w-full "
+              >
+                <option disabled value="default">
+                  Set Priority
+                </option>
+                <option value="low">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="high">High</option>
+                <option value="others">Others</option>
+              </select>
+              {errors.priority && (
+                <span className="text-red-600">Priority is required</span>
               )}
             </div>
 
