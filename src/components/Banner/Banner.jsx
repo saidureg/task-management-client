@@ -16,7 +16,7 @@ const Banner = () => {
           <p className="mb-5 text-white">
             With TaskSwift, you can organize your tasks, projects, and more.
           </p>
-          <Link>
+          <Link to="/login">
             <button className="btn btn-error text-white">Let's Explore</button>
           </Link>
         </div>
