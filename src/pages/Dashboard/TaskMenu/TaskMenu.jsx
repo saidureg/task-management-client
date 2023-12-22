@@ -1,14 +1,10 @@
 import MenuItem from "../Sidebar/MenuItem";
-import { FaRegAddressBook } from "react-icons/fa";
+import { FaTasks } from "react-icons/fa";
 
 const TaskMenu = () => {
   return (
     <>
-      <MenuItem
-        icon={FaRegAddressBook}
-        label="Dashboard"
-        address="/dashboard/tasks"
-      />
+      <MenuItem icon={FaTasks} label="Dashboard" address="/dashboard/tasks" />
     </>
   );
 };
