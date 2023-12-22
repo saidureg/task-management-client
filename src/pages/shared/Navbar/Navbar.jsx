@@ -6,7 +6,7 @@ const Navbar = () => {
   const navLinks = (
     <div className=" gap-2 flex flex-col lg:flex-row ">
       <Navlinks path="/" route="Home" />
-      <Navlinks path="/dashboard" route="Dashboard" />
+      <Navlinks path="/dashboard/tasks" route="Dashboard" />
       <Navlinks path="/contact" route="Contact" />
     </div>
   );

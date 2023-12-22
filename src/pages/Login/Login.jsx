@@ -9,7 +9,7 @@ const Login = () => {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/dashboard/tasks";
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;

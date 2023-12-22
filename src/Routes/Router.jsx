@@ -2,6 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
+import Register from "../pages/Register/Register";
+import Tasks from "../pages/Dashboard/Tasks/Tasks";
+import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../layout/Dashboard";
 
 const Router = createBrowserRouter([
   {
@@ -20,7 +24,21 @@ const Router = createBrowserRouter([
   },
   {
     path: "/register",
-    // element: <Register />,
+    element: <Register />,
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "tasks",
+        element: <Tasks />,
+      },
+    ],
   },
 ]);
 
